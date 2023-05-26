@@ -16,7 +16,7 @@
 import os
 
 # Third Party
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, PreTrainedTokenizer
 
 # Local
 from caikit.core import ModuleBase, ModuleLoader, ModuleSaver, module
@@ -33,6 +33,9 @@ DEFAULT_MODEL_REVISION = "f6b63ff"
 class HuggingFaceTextGenerationModule(ModuleBase):
     """Class to wrap AutoModelForSeq2SeqLM models from HuggingFace"""
 
+    tokenizer: PreTrainedTokenizer
+    model: any
+
     def __init__(self, model_path, whatever) -> None:
         super().__init__()
         #loader = ModuleLoader(model_path)
@@ -40,10 +43,15 @@ class HuggingFaceTextGenerationModule(ModuleBase):
 
 
     def run(self, text_input: TextInput) -> TextOutput:
+        print("Niklas - model loaded")
+        input_str: str
+        input_str = text_input.text
+        print(input_str)
 
-        input_ids = self.tokenizer(text_input, return_tensors="pt")["input_ids"]
-        output_ids = self.model.generate(input_ids)[0]
-        result = self.tokenizer.decode(output_ids, skip_special_tokens=True)
+        input_ids = HuggingFaceTextGenerationModule.tokenizer(input_str, return_tensors="pt")["input_ids"]
+        output_ids = HuggingFaceTextGenerationModule.model.generate(input_ids)[0]
+        result = HuggingFaceTextGenerationModule.tokenizer.decode(output_ids, skip_special_tokens=True)
+        print(result)
         return TextOutput(result)
 
 
@@ -55,7 +63,9 @@ class HuggingFaceTextGenerationModule(ModuleBase):
         #)
 
         model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
+        HuggingFaceTextGenerationModule.model = model
         tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
+        HuggingFaceTextGenerationModule.tokenizer = tokenizer
         print("Niklas - model loaded")
         print(model_path)
 

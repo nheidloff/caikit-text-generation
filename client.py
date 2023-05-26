@@ -30,10 +30,10 @@ channel = grpc.insecure_channel(f"localhost:{port}")
 client_stub = inference_service.stub_class(channel)
 
 
-for text in ["This is awes"]:
+for text in ["This is "]:
     input_text_proto = TextInput(text=text).to_proto()
-    request = inference_service.messages.HfBlockRequest(text_input=input_text_proto)
-    response = client_stub.HfBlockPredict(
+    request = inference_service.messages.HfModuleRequest(text_input=input_text_proto)
+    response = client_stub.HfModulePredict(
         request, metadata=[("mm-model-id", "text_generation")]
     )
     print("Text:", text)
