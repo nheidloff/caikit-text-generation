@@ -14,6 +14,7 @@
 
 # Standard
 from typing import List
+import py_to_proto
 
 # Local
 from caikit.core import DataObjectBase
@@ -33,3 +34,4 @@ class TextOutput(DataObjectBase):
     The analog to a `Raw Document` for the `Natural Language Processing` domain."""
 
     text: str
+
