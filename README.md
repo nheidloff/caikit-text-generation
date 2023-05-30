@@ -51,8 +51,6 @@ Example output:
 caikit.runtime.TextGeneration.TextGenerationService
 ```
 
-grpcurl -import-path ./protos -proto textgenerationservice.proto describe caikit.runtime.TextGeneration.TextGenerationService
-
 * Try to use `grpcul`
 
 ```sh
