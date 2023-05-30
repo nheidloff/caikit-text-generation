@@ -33,6 +33,7 @@ The command will create a folder with the proto files on your local computer.
 
 ```sh
 source ./caikit-env-3.9/bin/activate
+export CONFIG_FILES=text_generation/config.yml
 python3 -m caikit.runtime.dump_services protos
 ```
 
