@@ -50,14 +50,12 @@ Example output:
 caikit.runtime.TextGeneration.TextGenerationService
 ```
 
-* Use .. 
+grpcurl -import-path ./protos -proto textgenerationservice.proto describe caikit.runtime.TextGeneration.TextGenerationService
+
+* Try to use `grpcul`
 
 ```sh
-grpcurl -d '{"text": "I am not "}' -import-path ./protos  -proto hfmodulerequest.proto -plaintext localhost:8085  caikit.runtime.TextGeneration.HfModuleRequest 
-```
-
-```sh
-grpcurl -import-path ./protos -proto textgenerationservice.proto -d '{"text": "I am not "}' -plaintext localhost:8085 caikit.runtime.TextGeneration.TextGenerationService
+grpcurl -import-path ./protos -proto textgenerationservice.proto -d '{"text_input":{"text":"I am not"}}' -plaintext localhost:8085 caikit.runtime.TextGeneration.TextGenerationService/HfModulePredict
 ```
 
 * List the services
