@@ -28,10 +28,13 @@ port = 8085
 channel = grpc.insecure_channel(f"localhost:{port}")
 
 client_stub = inference_service.stub_class(channel)
-
+print(f"\n*** \n Client stub:\n--\n {client_stub}\n--\n")
+print(f"\n*** \n Verify if the with grpc command is available:\n--\n {dir(client_stub)}\n--\n")
 
 for text in ["This is "]:
     input_text_proto = TextInput(text=text).to_proto()
+    print(f"\n*** \n Input text proto: '{input_text_proto}'\n*** \n ")
+
     request = inference_service.messages.HfModuleRequest(text_input=input_text_proto)
     response = client_stub.HfModulePredict(
         request, metadata=[("mm-model-id", "text_generation")]
