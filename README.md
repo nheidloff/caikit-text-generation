@@ -36,6 +36,42 @@ source ./caikit-env-3.9/bin/activate
 python3 -m caikit.runtime.dump_services protos
 ```
 
+## Use `grpcurl`
+
+* List the services
+
+```sh
+grpcurl -import-path ./protos -proto textgenerationservice.proto list
+```
+
+Example output:
+
+```sh
+caikit.runtime.TextGeneration.TextGenerationService
+```
+
+* Use .. 
+
+```sh
+grpcurl -d '{"text": "I am not "}' -import-path ./protos  -proto hfmodulerequest.proto -plaintext localhost:8085  caikit.runtime.TextGeneration.HfModuleRequest 
+```
+
+```sh
+grpcurl -import-path ./protos -proto textgenerationservice.proto -d '{"text": "I am not "}' -plaintext localhost:8085 caikit.runtime.TextGeneration.TextGenerationService
+```
+
+* List the services
+
+```sh
+grpcurl -import-path ./protos -proto textgenerationservice.proto -plaintext localhost:8085 list
+```
+
+Example output:
+
+```sh
+caikit.runtime.TextGeneration.TextGenerationService
+```
+
 ## Container
 
 * Build a container image and execute a container image
