@@ -57,8 +57,10 @@ FROM caikit-base as build-protos
 WORKDIR /app
 
 COPY text_generation text_generation
+COPY models models
+COPY start_runtime.py start_runtime.py
 
-ENV CONFIG_FILES=text_generation/config/config.yml
+ENV CONFIG_FILES=text_generation/config.yml
 # generate the protos
 RUN python -m caikit.runtime.dump_services protos
 

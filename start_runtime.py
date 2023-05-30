@@ -30,10 +30,11 @@ alog.configure(default_level="debug")
 
 # Local
 from caikit.runtime import grpc_server
-from caikit.runtime import dump_services
-print("---------------------")
-print("- Dump services proto")
-print("---------------------")
-dump_services("proto")
+
+#from caikit.runtime import dump_services
+#print("---------------------")
+#print("- Dump services proto")
+#print("---------------------")
+#dump_services("proto")
 
 grpc_server.main()
