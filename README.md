@@ -51,13 +51,7 @@ Example output:
 caikit.runtime.TextGeneration.TextGenerationService
 ```
 
-* Try to use `grpcul`
-
-```sh
-grpcurl -import-path ./protos -proto textgenerationservice.proto -d '{"text_input":{"text":"I am not"}}' -plaintext localhost:8085 caikit.runtime.TextGeneration.TextGenerationService/HfModulePredict
-```
-
-* List the services
+* List the services with the grpc-server
 
 ```sh
 grpcurl -import-path ./protos -proto textgenerationservice.proto -plaintext localhost:8085 list
@@ -67,6 +61,20 @@ Example output:
 
 ```sh
 caikit.runtime.TextGeneration.TextGenerationService
+```
+
+* Describe the service
+
+```sh
+grpcurl -import-path ./protos -proto textgenerationservice.proto -plaintext localhost:8085 describe caikit.runtime.TextGeneration.TextGenerationService
+```
+
+Example output:
+
+```sh
+service TextGenerationService {
+  rpc HfModulePredict ( .caikit.runtime.TextGeneration.HfModuleRequest ) returns ( .text_generation.data_model.TextOutput );
+}
 ```
 
 ## Container
