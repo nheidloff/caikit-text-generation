@@ -20,6 +20,7 @@ from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, PreTrainedTokeniz
 
 # Local
 from caikit.core import ModuleBase, ModuleLoader, ModuleSaver, module
+
 from text_generation.data_model.text_generation import (
     TextOutput,
     TextInput
@@ -27,7 +28,6 @@ from text_generation.data_model.text_generation import (
 
 DEFAULT_MODEL = "google/flan-t5-small"
 DEFAULT_MODEL_REVISION = "f6b63ff"
-
 
 @module("9E42606B-34A8-4D4C-9B6C-6F66DAD8EC5A", "HuggingFaceTextGenerationModule", "0.0.1")
 class HuggingFaceTextGenerationModule(ModuleBase):
@@ -43,15 +43,28 @@ class HuggingFaceTextGenerationModule(ModuleBase):
 
 
     def run(self, text_input: TextInput) -> TextOutput:
-        print("Niklas - model loaded")
+       
+        print("---------------------")
+        print("- run model invoked")
+        print("---------------------")
+                   
         input_str: str
         input_str = text_input.text
-        print(input_str)
+
+        print("---------------------")
+        print("- Input")
+        print("---------------------")
+        print(f"Input string: {input_str}")
 
         input_ids = HuggingFaceTextGenerationModule.tokenizer(input_str, return_tensors="pt")["input_ids"]
         output_ids = HuggingFaceTextGenerationModule.model.generate(input_ids)[0]
         result = HuggingFaceTextGenerationModule.tokenizer.decode(output_ids, skip_special_tokens=True)
-        print(result)
+        
+        print("---------------------")
+        print("- Result")
+        print("---------------------")
+        print(f"Result : {result}")
+
         return TextOutput(result)
 
 
@@ -66,8 +79,10 @@ class HuggingFaceTextGenerationModule(ModuleBase):
         HuggingFaceTextGenerationModule.model = model
         tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
         HuggingFaceTextGenerationModule.tokenizer = tokenizer
-        print("Niklas - model loaded")
-        print(model_path)
+        print("---------------------")
+        print("- model loaded")
+        print(f"  model path: {model_path}")
+        print("---------------------")
 
         return cls(model, tokenizer)
 
@@ -86,11 +101,15 @@ class HuggingFaceTextGenerationModule(ModuleBase):
 
     @classmethod
     def bootstrap(cls, model_path="google/flan-t5-small"):
-        print("Niklas - bootstrap start")
+        print("---------------------")
+        print("- bootstrap start")
+        print("---------------------")
 
         model = AutoModelForSeq2SeqLM.from_pretrained(DEFAULT_MODEL)
         tokenizer = AutoTokenizer.from_pretrained(DEFAULT_MODEL)
         
-        print("Niklas - bootstrap end")
+        print("---------------------")
+        print("- bootstrap end")
+        print("---------------------")
 
         return cls(model_path)
