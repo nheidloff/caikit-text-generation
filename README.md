@@ -94,11 +94,7 @@ message HfModuleRequest {
 
 ```sh
 MM_MODEL_ID=text_generation
-grpcurl -d '{"text_input":{"text":"This is"}}' -H "mm-model-id: $MM_MODEL_ID" -import-path ./protos -proto textgenerationservice.proto -plaintext localhost:8085 caikit.runtime.TextGeneration.TextGenerationService/HfModulePredict
-```
-
-```sh
-grpcurl -d '{"text_input":{"text_input":"text:I am not feeling well today!"}}' -import-path ./protos -proto textgenerationservice.proto -plaintext localhost:8085 caikit.runtime.TextGeneration.HfModuleRequest/message
+grpcurl -d '{"text_input":{"text":"This is"}}' -H "mm-model-id:$MM_MODEL_ID" -import-path ./protos -proto textgenerationservice.proto -plaintext localhost:8085 caikit.runtime.TextGeneration.TextGenerationService/HfModulePredict
 ```
 
 ## Container
